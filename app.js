@@ -4,6 +4,8 @@ import fs from "fs";
 // import fs from "fs/promises"; // for more control in try catch write
 import path from "path";
 import os from "os";
+import EventEmitter from "events";
+
 
 //http module
 console.log("\n----------------\nHTTP MODULE\n-----------------\n");
@@ -139,3 +141,35 @@ console.log("OS type: ", os.type());
 console.log("OS uptime: ", os.uptime());
 console.log("OS version: ", os.version());
 console.log("OS machine: ", os.machine());
+
+// Event Emitter
+// Later, remove the listener when no longer needed
+// myEmitter.off('event', listener);
+
+console.log("\n----------------\nEVENT EMITTER\n-----------------\n");
+const emitter = new EventEmitter();
+
+emitter.on("greet", () => {
+  console.log("Greet Event triggred");
+});
+emitter.emit("greet");
+
+// Passing Data Through Events
+emitter.on("login", (name) => {
+  console.log(`${name} logged in`);
+});
+emitter.emit("login", "Pranav");
+
+// Multiple Listeners for One Event
+emitter.on("userRegistered", (user) => {
+  console.log("Send welcome email to " + user);
+});
+
+emitter.on("userRegistered", (user) => {
+  console.log("Create profile for " + user);
+});
+
+emitter.emit("userRegistered", "Pranav");
+
+
+
