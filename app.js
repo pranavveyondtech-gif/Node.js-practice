@@ -1,0 +1,141 @@
+// create basic node server
+import http from "http";
+import fs from "fs";
+// import fs from "fs/promises"; // for more control in try catch write
+import path from "path";
+import os from "os";
+
+//http module
+console.log("\n----------------\nHTTP MODULE\n-----------------\n");
+const server = http.createServer((req, res) => {
+  // 1. Set the correct header so the browser knows it's receiving HTML
+  res.setHeader("Content-Type", "text/html");
+
+  const { url, method } = req; // method means GET/POST/etc
+
+  // 2. You can write a complete HTML document including <html>, <head>, and <body>
+  // Here we apply a background color and font styles to the entire <body> tag
+  res.write(`
+    <html>
+      <head>
+        <title>My Node Server</title>
+      </head>
+      <body style="background-color: black; font-family: sans-serif; padding: 40px; color: green;">
+        <h1>This is h1 of res.write</h1>
+        <p>You made a <strong>${method}</strong> request to <strong>${url}</strong></p>
+        <p>Hello from node.js server!</p>
+      </body>
+    </html>
+  `);
+
+  // 3. End the response
+  res.end();
+});
+
+server.listen(3000, () => {
+  console.log("\n\nserver is running on port 3000");
+});
+
+// fs module
+console.log("\n----------------\nFS MODULE\n-----------------\n");
+// to write file syncronously
+fs.writeFileSync("./myfile.txt", "Hello from WriteFileSync of node.js");
+
+// to append syncronously
+fs.appendFileSync("./myfile.txt", "\nHello from appendFileSync of node.js");
+
+//to read data synchronously
+const data = fs.readFileSync("./myfile.txt", "utf-8");
+console.log("File data from readFileSync: ", data);
+
+// to write file assyncronously
+fs.writeFile("./myfile.txt", "Hello from WriteFile of node.js", (err) => {
+  if (err) {
+    console.log("\nfile error: ", err);
+  } else {
+    console.log("\nFile written  asynchrounously successfully");
+  }
+});
+
+// to append assyncronously
+fs.appendFile("./myfile.txt", "\nHello from appendFile of node.js", (err) => {
+  if (err) {
+    console.log("\nfile error: ", err);
+  } else {
+    console.log("\nFile appended  asynchrounously successfully");
+  }
+});
+
+//to read a file assyncronously
+fs.readFile("./myfile.txt", "utf8", (err, data) => {
+  if (err) {
+    console.log("\nfile error: ", err);
+  } else {
+    console.log("\nFile data from readFile Asynchrounous: ", data);
+  }
+});
+
+// For more control over file operations, you can use file handles:
+// uncommenet import fs/promises
+// async function writeWithFileHandle() {
+//   let fileHandle;
+
+//   try {
+//     // Open a file for writing (creates if doesn't exist)
+//     fileHandle = await fs.open('output.txt', 'w');
+
+//     // Write content to the file
+//     await fileHandle.write('First line\n');
+//     await fileHandle.write('Second line\n');
+//     await fileHandle.write('Third line\n');
+
+//     console.log('Content written successfully');
+//   } catch (err) {
+//     console.error('Error writing to file:', err);
+//   } finally {
+//     // Always close the file handle
+//     if (fileHandle) {
+//       await fileHandle.close();
+//     }
+//   }
+// }
+
+// writeWithFileHandle();
+
+//import
+console.log("\n----------------\nIMPORT\n-----------------\n");
+import { add, subtract } from "./math.js";
+console.log("add ", add(1, 2));
+console.log("subtract", subtract(1, 2));
+
+import multiply from "./math.js";
+console.log("multiply", multiply(1, 2));
+
+// Path module
+console.log("\n----------------\nPATH MODULE\n-----------------\n");
+console.log("extension name: ", path.extname("path_folder/path_ex.txt"));
+console.log("file name: ", path.basename("path_folder/path_ex.txt"));
+console.log("directory name: ", path.dirname("path_folder/path_ex.txt"));
+console.log("join: ", path.join("path_folder", "path_ex.txt"));
+console.log("resolve: ", path.resolve("path_folder", "path_ex.txt"));
+console.log("absolute path: ", path.isAbsolute("path_folder/path_ex.txt"));
+console.log("parsed path: ", path.parse("path_folder/path_ex.txt"));
+
+//  OS module
+console.log("\n----------------\nOS MODULE\n-----------------\n");
+console.log("OS Arch: ", os.arch());
+console.log("OS cpus: ", os.cpus().length);
+// console.log("OS cpus: ",os.cpus());
+console.log("OS freemem: ", os.freemem());
+console.log("OS homedir: ", os.homedir());
+console.log("OS hostname: ", os.hostname());
+console.log("OS loadavg: ", os.loadavg());
+console.log("OS platform: ", os.platform());
+console.log("OS release: ", os.release());
+console.log("OS tmpdir: ", os.tmpdir());
+console.log("OS totalmem: ", os.totalmem());
+console.log("OS type: ", os.type());
+// console.log("OS userinfo: ",os.userInfo());
+console.log("OS uptime: ", os.uptime());
+console.log("OS version: ", os.version());
+console.log("OS machine: ", os.machine());
