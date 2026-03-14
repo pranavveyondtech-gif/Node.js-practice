@@ -115,3 +115,72 @@ Node.js provides several built-in modules that are compiled into the binary. Her
 5. One event can have multiple listeners.
 6. Every `emit()` triggers the listeners again.
 7. `off('event', listener)` → remove the listener when no longer needed.
+
+
+
+---
+
+## 5. Routing
+Routing = sending different responses based on the request URL.
+
+Since a Node server has one entry function `(req, res) => {}`, it must check `req.url` to decide which response to send.
+
+**Example URL mapping:**
+- `/` → Home page
+- `/about` → About page
+- `/contact` → Contact page
+
+---
+
+## 6. POST Requests
+Used to **receive data** sent by the client.
+
+- `req.on("data", callback)` — receives data in chunks.
+- `req.on("end", callback)` — processes data after all chunks are received.
+
+---
+
+## 7. JSON
+**JSON (JavaScript Object Notation)** — lightweight data-interchange format used to send/receive structured data between client and server.
+
+---
+
+## 8. Streams
+Streams process data **in chunks** as it arrives, instead of loading everything into memory at once.
+
+**Common use cases:**
+- File system read/write
+- HTTP requests and responses
+- Data compression/decompression
+- Real-time data processing
+
+**Why use streams?**
+- **Memory Efficient** — no need to load full data into memory.
+- **Time Efficient** — start processing immediately.
+- **Composable** — chain streams into data pipelines.
+
+### Stream Types
+
+| Type        | Description                              | Examples                                      |
+| :---------- | :--------------------------------------- | :-------------------------------------------- |
+| `Readable`  | Source — data can be read from it        | `fs.createReadStream()`, HTTP responses       |
+| `Writable`  | Destination — data can be written to it  | `fs.createWriteStream()`, HTTP requests       |
+| `Duplex`    | Both Readable and Writable               | TCP sockets                                   |
+| `Transform` | Duplex that modifies data in transit     | Zlib (compression), crypto streams            |
+
+### Stream Events
+
+**Readable:**
+- `data` — chunk of data available.
+- `end` — no more data.
+- `error` — read error.
+- `close` — underlying resource closed.
+- `readable` — data ready to read.
+
+**Writable:**
+- `drain` — ready to accept more data after backpressure.
+- `finish` — all data flushed.
+- `error` — write error.
+- `close` — underlying resource closed.
+- `pipe` / `unpipe` — piping started/stopped.
+
