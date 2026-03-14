@@ -7,13 +7,10 @@ const server = http.createServer((req, res) => {
   // res.write(`URL: ${url}\n`);
   // res.write(`Method: ${method}\n\n`);
   let filePath;
-  if (url === "/") 
-  { 
+  if (url === "/") {
     // manual handling, URL module helps for automatic handling,
     filePath = path.join(process.cwd(), "index.html");
-  } 
-  else if (url === "/about") 
-  {
+  } else if (url === "/about") {
     filePath = path.join(process.cwd(), "about.html");
   } else if (url === "/users" && method === "GET") {
     const users = ["pranav", "rahul", "prince", "sahil"];
