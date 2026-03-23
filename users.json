@@ -26,5 +26,12 @@
     "email": "sahil@example.com",
     "age": 23,
     "role": "moderator"
+  },
+  {
+    "id": 5,
+    "name": "testing menu",
+    "email": "sonaiyamahesh+39@gmail.com",
+    "age": 57,
+    "role": "user"
   }
 ]
