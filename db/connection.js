@@ -1,16 +1,13 @@
-import { MongoClient } from "mongodb";
+// connection.js
+import mysql from 'mysql2/promise';
 
-// const url = "mongodb+srv://API_practice:Pran@v1811@pranav.d9jvdrj.mongodb.net//mydb"; //due to @
-const url = "mongodb+srv://API_practice:Pran%40v1811@pranav.d9jvdrj.mongodb.net/mydb";
+const DB = await mysql.createConnection({
+  host: 'localhost',
+  user: 'root',        // XAMPP default
+  password: '',
+  database: 'api_practice'
+});
 
-const client = new MongoClient(url);
+console.log("✅ Connected to SQL database!");
 
-export async function connectDB() {
-  try {
-    await client.connect();
-    console.log("✅ Connected to MongoDB");
-    return client;
-  } catch (err) {
-    console.log("❌ Error:", err);
-  }
-}
+export default DB;

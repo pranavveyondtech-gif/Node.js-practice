@@ -1,12 +1,12 @@
 {
   "name": "node.js-practice",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js allows you to run JavaScript outside the browser. It is commonly used for: - File system operations. - Creating web servers and APIs. - Connecting to databases.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,15 @@
     "nodemon": "^3.1.14"
   },
   "dependencies": {
-    "mongodb": "^7.1.0"
-  }
+    "mongodb": "^7.1.0",
+    "mysql2": "^3.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pranavveyondtech-gif/Node.js-practice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pranavveyondtech-gif/Node.js-practice/issues"
+  },
+  "homepage": "https://github.com/pranavveyondtech-gif/Node.js-practice#readme"
 }
