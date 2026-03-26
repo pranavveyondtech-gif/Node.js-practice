@@ -1,5 +1,8 @@
 # Node.js Basics
 
+##Library used
+busboy - for image taking in post api
+
 ## 1. Node.js Basics
 Node.js allows you to run JavaScript outside the browser. It is commonly used for:
 - File system operations.
