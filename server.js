@@ -51,10 +51,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  //GET: all USERS
-  if (req.url === "/users" && req.method === "GET") {
+  //GET: all USERS with search
+  if (req.url.startsWith("/users?") && req.method === "GET") {
     try {
-      const [rows] = await DB.execute("SELECT * FROM users");
+      const url = new URL(req.url, "http://localhost:3000");
+      const search = url.searchParams.get("search");
+      let query = "SELECT * FROM users";
+      let values = [];
+
+      if (search && search.trim() !== "") {
+        query += " WHERE name LIKE ? OR email LIKE ? ";
+        values.push(`%${search}%`, `%${search}%`);
+      }
+
+      const [rows] = await DB.execute(query, values);
       const users = rows.map((user) => ({
         ...user,
         image: `http://localhost:3000/${user.image}`,
@@ -289,7 +299,7 @@ const server = http.createServer(async (req, res) => {
       let newImagePath = null;
       let filePromises = [];
 
-      // 2Handle fields
+      // Handle fields
       bb.on("field", (name, value) => {
         if (value !== undefined && value !== null) {
           updatedFields[name] = name === "age" ? Number(value) : value;
